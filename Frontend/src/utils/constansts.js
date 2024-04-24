@@ -2,7 +2,7 @@
 export const API_KEY='76297b25';
 export const OMDB_BASE_URL='http://www.omdbapi.com/';
 export const YT_API_KEY='AIzaSyCTjqxSDzio4buXE1JL5F9qM1gKJ7uzvuc';
-export const BACKEND_URL = 'http://localhost:5000';
+export const BACKEND_URL = 'https://collegeproject-netflix.onrender.com';
 // export const TMDB_BASE_URL='https://api.themoviedb.org/3';
 // https://developers.themoviedb.org/3/genres
 

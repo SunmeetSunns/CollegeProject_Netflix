@@ -27,7 +27,7 @@ export default
       const dispatch = useDispatch();
       const addtoList = async () => {
         try {
-          await axios.post('http://localhost:5000/api/user/add', { email, data: movieData })
+          await axios.post('https://collegeproject-netflix.onrender.com/api/user/add', { email, data: movieData })
         }
         catch (err) {
           console.log(err);
