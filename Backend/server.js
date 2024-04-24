@@ -4,14 +4,6 @@ const mongoose = require('mongoose');
 const userRoutes = require("./routes/userRoutes");
 const app = express();
 
-const MongoDBCONNECT = 
-"mongodb+srv://kaursunmeet624:meet2002@cluster0.oozu3zq.mongodb.net/?tls=true"
-
-// Check if the connection string is defined
-if (!MongoDBCONNECT) {
-    console.error("MongoDB connection string is not provided.");
-    process.exit(1); // Exit the process with an error code
-}
 // Enable CORS middleware
 app.use(cors());
 
@@ -19,11 +11,17 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
+const MongoDBCONNECT = 'mongodb+srv://kaursunmeet624:meet2002@cluster0.oozu3zq.mongodb.net/netflix?retryWrites=true&w=majority';
+
 mongoose.connect(MongoDBCONNECT, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
+    useUnifiedTopology: true
+})
+.then(() => {
     console.log('DB Connected');
+})
+.catch(err => {
+    console.error('Error connecting to MongoDB:', err);
 });
 
 // User routes
