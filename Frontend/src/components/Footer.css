@@ -1,0 +1,259 @@
+.footer {
+    height: 32em;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 5em;
+
+    /* margin-top: 5em; */
+}
+
+.border {
+    height: 8px;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: rgb(58 53 53);
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    padding: 10rem 8rem;
+    gap: 2em;
+}
+
+.box1 {
+    display: flex;
+    flex-direction: row;
+    padding: 10rem 8rem;
+    width: 100%;
+
+}
+
+.foot-left {
+    height: 40em;
+    width: 40em;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 1.5em;
+    position: relative;
+    left: 2em;
+}
+
+.foot-left>h1 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.foot-left>h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.right {
+    position: relative;
+}
+
+.right2 {
+    position: relative;
+    top: 3em;
+}
+
+.right>img {
+    position: absolute;
+    transform: scale(0.8);
+    /* Correct syntax for scale */
+    bottom: 20em;
+}
+
+.right2>img {
+    position: absolute;
+    transform: scale(0.9);
+    /* Correct syntax for scale */
+    bottom: 20em;
+}
+
+.right>.data {
+    position: absolute;
+    top: -10%;
+    transform: scale(77%, 77%);
+    width: 70%;
+    height: auto;
+    max-width: 73%;
+    max-height: 54%;
+    z-index: -1;
+    margin-left: 133px;
+
+}
+
+.left1 {
+    position: relative;
+
+}
+
+.footer1 {
+    height: 40em;
+    width: 100%;
+}
+
+.bold-box {
+    height: 6em;
+    width: 20em;
+    border: 2px solid rgb(83 78 78);
+    border-radius: 15px;
+    position: absolute;
+    top: 13em;
+    left: 12em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: black;
+
+}
+
+.img-girl {
+    position: absolute;
+    transform: scale(0.9);
+    top: -7em;
+    left: 2em;
+
+}
+
+.inner-image {
+    padding: 0.5rem 0.8rem;
+}
+
+.inner-image>img {
+    height: 4.6rem;
+    width: 4rem;
+}
+
+.gif {
+    width: 3rem;
+    height: 3rem;
+    outline: 2px solid rgb(0, 0, 0);
+    outline-offset: -2px;
+    display: block;
+    background: url(https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/download-icon.gif) center center no-repeat;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    content: '';
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    margin-top: 1.3rem;
+    margin-right: 1rem;
+}
+
+.movie-name {
+    margin-top: 22px;
+    margin-right: 3em;
+}
+
+.movie-name>h5 {
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.movie-name>span {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #0071eb;
+}
+
+.right1 {
+    position: absolute;
+    left: 50em;
+    display: flex;
+    flex-direction: column;
+    margin-right: 9em;
+    gap: 1.5em;
+    margin-top: 2em;
+}
+
+.right1>h1 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.right1>h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.right2>.data {
+    position: absolute;
+    top: -22%;
+    transform: scale(78%, 69%);
+    width: 70%;
+    height: auto;
+    max-width: 73%;
+    max-height: 54%;
+    z-index: -1;
+    margin-left: 132px;
+}
+
+.left2 {
+    position: relative;
+    top: -5em;
+}
+.frequent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5em 10em;
+}
+.bkr-footer{
+    width: 100%;
+    height: 30em;
+}
+.grid-box{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+   grid-template-rows: 1fr 1fr 1fr 1fr;
+    text-align: left;
+    row-gap: 1em;
+
+}
+.grid-box>span{
+    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.975rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+.my-info{
+    padding: 5em 10em;
+    
+}
+.my-info>h1{
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2em;
+    font-size: 0.975rem;
+    font-weight: 400;
+    margin-top: 2em;
+}
+.my-info>h1>span{
+text-decoration: underline;
+}
+.language{
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5em;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    margin-top: 2em;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    font-size: 0.975rem;
+    font-weight: 400;
+
+}
