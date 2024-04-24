@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require("./routes/userRoutes");
+const omdbProxyRouter = require('./omdbProxy'); // Update the path to omdbProxyRouter
 
 const app = express();
 
@@ -22,8 +23,11 @@ mongoose.connect("mongodb+srv://kaursunmeet624:meet2002@cluster0.oozu3zq.mongodb
 // User routes
 app.use('/api/user', userRoutes);
 
+// Mount the omdbProxyRouter at the appropriate endpoint
+app.use('/api/omdbProxy', omdbProxyRouter);
+
 // Start server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });

@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   createSlice,
 } from '@reduxjs/toolkit';
-import { API_KEY, OMDB_BASE_URL, YT_API_KEY } from '../utils/constansts';
+import { API_KEY, OMDB_BASE_URL, YT_API_KEY ,BACKEND_URL} from '../utils/constansts';
 import axios from 'axios';
 
 
@@ -63,9 +63,8 @@ export const getGenres = createAsyncThunk('netflix/genres', async (imdbIDs) => {
   try {
     // Create an array to store the genres of all movies
     const requests = imdbIDs.map(imdbID => {
-      return axios.get(OMDB_BASE_URL, {
+      return axios.get(`${BACKEND_URL}/api/omdbProxy/movie/${imdbID}`, {
         params: {
-          i: imdbID, // IMDb ID of the movie
           apikey: API_KEY, // Include API key as a query parameter
         }
       });
@@ -78,7 +77,6 @@ export const getGenres = createAsyncThunk('netflix/genres', async (imdbIDs) => {
     const genres = responses.map(response => response.data);
     // Call getAllRawData to further process the genres data if needed
     const movieArray = getAllRawData(genres);
-    
     // Return the genres array as the payload
     return movieArray;
 
@@ -87,6 +85,7 @@ export const getGenres = createAsyncThunk('netflix/genres', async (imdbIDs) => {
     throw error;
   }
 });
+
 
 
 
