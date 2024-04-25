@@ -1,0 +1,47 @@
+.listPx svg {
+    display: none;
+    /* Hide the SVG by default */
+}
+
+@media screen and (max-width: 630px) {
+    .links {
+        display: none;
+    }
+
+    .myNav {
+        padding: 0;
+    }
+
+    .listPx svg {
+        display: inline-block;
+        /* Show the SVG when the screen is 600px or less */
+        color: white;
+        font-size: 1.2rem;
+        margin-left: 10px;
+    }
+
+    .dropdown-content {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 27px;
+        background: black;
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        list-style-type: none;
+        box-shadow: 0px 19px 60px rgb(239 234 234 / 10%);
+    }
+
+    .dropdown-content>li {
+        border: 1px solid gray;
+        padding: 4px 25px;
+
+    }
+
+    .dropdown-content>li>a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
+}

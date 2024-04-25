@@ -32,11 +32,11 @@ function Footer() {
                 <div className="box1">
                     <div className="left1">
                         <div className='img-girl'>
-                            <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" alt="" />
+                            <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" alt="girl" />
                         </div>
                         <div className="bold-box">
                             <div className='inner-image'>
-                                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/boxshot.png" alt="" />
+                                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/boxshot.png" alt="inner" />
                             </div>
                             <div className='movie-name'>
                                 <h5>Stranger things</h5>
@@ -74,7 +74,7 @@ function Footer() {
                 <div className='border'></div>
                 <div className="box1">
                     <div className="left2">
-                       <img src="https://occ-0-6246-2186.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABVr8nYuAg0xDpXDv0VI9HUoH7r2aGp4TKRCsKNQrMwxzTtr-NlwOHeS8bCI2oeZddmu3nMYr3j9MjYhHyjBASb1FaOGYZNYvPBCL.png?r=54d" alt="" /> 
+                       <img src="https://occ-0-6246-2186.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABVr8nYuAg0xDpXDv0VI9HUoH7r2aGp4TKRCsKNQrMwxzTtr-NlwOHeS8bCI2oeZddmu3nMYr3j9MjYhHyjBASb1FaOGYZNYvPBCL.png?r=54d" alt="left" /> 
                        
                     </div>
                     <div className="right1">
