@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   createSlice,
 } from '@reduxjs/toolkit';
-import { API_KEY, OMDB_BASE_URL, YT_API_KEY ,BACKEND_URL} from '../utils/constansts';
+import { API_KEY,  YT_API_KEY ,BACKEND_URL} from '../utils/constansts';
 import axios from 'axios';
 
 
