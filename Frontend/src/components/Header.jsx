@@ -37,5 +37,9 @@ button{
   font-weight:bolder;
   font-size:1.05rem;
 }
+@media screen and (max-width:400px){
+  padding: 0rem 1rem;
+  
+}
  
 `;

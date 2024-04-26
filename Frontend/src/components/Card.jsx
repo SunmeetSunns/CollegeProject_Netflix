@@ -115,7 +115,7 @@ const Container = styled.div`
     height: max-content;
     width: 18rem;
     position: absolute;
-    top: -18vh;
+    top:1vh;
     left: -2em;
     border-radius: 0.3rem;
     box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
@@ -123,10 +123,10 @@ const Container = styled.div`
     transition: 0.3s ease-in-out;
     .image-video-container {
       position: relative;
-      height: 140px;
+      height: 130px;
       img {
         width: 100%;
-        height: 140px;
+        height: 130px;
         object-fit: cover;
         border-radius: 0.3rem;
         top: 0;
@@ -135,7 +135,7 @@ const Container = styled.div`
       }
       video {
         width: 100%;
-        height: 140px;
+        height: 130px;
         object-fit: cover;
         border-radius: 0.3rem;
         top: 0;
@@ -144,7 +144,7 @@ const Container = styled.div`
       }
     }
     .info-container {
-      padding: 1rem;
+      padding: 0.5rem;
       gap: 0.5rem;
     }
     .icons {

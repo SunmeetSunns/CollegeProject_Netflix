@@ -257,3 +257,36 @@ text-decoration: underline;
     font-weight: 400;
 
 }
+@media screen and (max-width:1250px) {
+    .footer{
+        display: none;
+    }
+    .footer1{
+        display: none;
+    }
+}
+@media screen and (min-width: 1250px) and (max-width: 1400px) {
+    .footer .right {
+        transform: scale(0.8);
+    }
+    .right2{
+        transform: scale(0.8);
+    }
+}
+@media screen and (max-width:300px) {
+   .questions{
+    display: none;
+   }
+}
+@media screen and (min-width:300px) and (max-width:850px){
+    .frequent{
+        padding: 3em 2em;
+    }
+    .my-info{
+        padding: 2em 2em;
+    }
+    .grid-box{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+ }
