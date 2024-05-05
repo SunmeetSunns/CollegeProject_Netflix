@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '../utils/firebase.config';
 import './Navbar.css'
+import { useDispatch } from 'react-redux';
+import { getMovieBySearch } from '../store';
+import NotAvailable from './NotAvailable';
 
 const Navbar = ({ isScrolled }) => {
     const links = [
@@ -20,6 +23,21 @@ const Navbar = ({ isScrolled }) => {
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
+    };
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = (event) => {
+        const value = event.target.value;
+        setInputValue(value);
+    };
+    const dispatch = useDispatch();
+    const handleKeyPress = (event, dispatch) => {
+        if (event.key === 'Enter' && event.target.value !== '') {
+            dispatch(getMovieBySearch(event.target.value));
+        }
+        else{
+            <NotAvailable/>
+        }
     };
 
     return (
@@ -48,12 +66,19 @@ const Navbar = ({ isScrolled }) => {
                         }}>
                             <FaSearch />
                         </button>
-                        <input type='text' placeholder='Search'
-                            onMouseEnter={() => setInputHover(true)} onMouseLeave={() => setInputHover(false)}
+                        <input
+                            type='text'
+                            placeholder='Search'
+                            value={inputValue}
+                            onInput={handleInputChange}
+                            onMouseEnter={() => setInputHover(true)}
+                            onMouseLeave={() => setInputHover(false)}
                             onBlur={() => {
                                 setInputHover(false);
-                                setshowSearch(false)
-                            }}></input>
+                                setshowSearch(false);
+                            }}
+                            onKeyDown={(event) => handleKeyPress(event, dispatch)}
+                        />
                     </div>
                     <button onClick={() => signOut(firebaseAuth)}>
                         <FaPowerOff />

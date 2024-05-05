@@ -164,6 +164,40 @@ export const getAllMoviesData = createAsyncThunk('netflix/genres_id', async (gen
   }
 
 });
+export const getMovieBySearch = createAsyncThunk('netflix/search', async (searchItem,thunkAPI) => {
+  const options = {
+    method: 'GET',
+    url: `https://moviesdatabase.p.rapidapi.com/titles/search/akas/${searchItem}`,
+
+    headers: {
+      'X-RapidAPI-Key': '0bd14eb2cdmshc74f7d07120123ep1eadd7jsnfd2042092d20',
+      'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await axios.request(options);
+    console.log(response)
+    if(response?.data?.entries!==0){
+      const id_s = []
+      for (let i = 0; i < response?.data?.entries; i++) {
+       
+        id_s.push(response.data?.results[i].id)
+       
+        
+        
+      }
+      thunkAPI.dispatch(getGenres(id_s));
+    }
+    else{
+      getAllRawData("null")
+    }
+   
+    return response.data; // Return the fetched data
+  } catch (error) {
+    throw error; // Throw error so it can be caught by the caller
+  }
+});
 export const getAllSeriesData = createAsyncThunk('netflix/genres_series', async (genre, thunkAPI) => {
   var url;
   var no_of_hit;  
@@ -214,6 +248,7 @@ export const getUserLikedMovies=createAsyncThunk('netflix/getLiked',async(email)
   return movies;
 }
 )
+
 
 export const removeFromLikedMovies = createAsyncThunk(
   'netflix/deleteLiked',
@@ -271,6 +306,9 @@ const NetflixSlice = createSlice({
     builder.addCase(removeFromLikedMovies.fulfilled, (state, action) => {
      
       state.movies = action.payload;
+    })
+    builder.addCase(getMovieBySearch.fulfilled,(state,action)=>{
+      state.movies=action.payload;
     })
    
   }

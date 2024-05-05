@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import {getUserLikedMovies } from '../store';
+import { getUserLikedMovies } from '../store';
 import Navbar from '../components/Navbar';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseAuth } from '../utils/firebase.config';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card';
 
 export default function UserLiked() {
@@ -21,9 +21,9 @@ export default function UserLiked() {
     movies = useSelector((state) => state.netflix.movies);
     useEffect(() => {
         if (email) {
-            dispatch(getUserLikedMovies(email))
+            dispatch(getUserLikedMovies(email));
         }
-    }, [email]);
+    }, [email, dispatch]);
 
     const [isScrolled, setIsScrolled] = useState(false);
     window.onscroll = () => {
@@ -35,12 +35,13 @@ export default function UserLiked() {
             <Navbar isScrolled={isScrolled} />
             <div className="content flex column">
                 <h1>My List</h1>
-                <div className="grid flex">
-                    {movies && movies.map((movie, index) => (
-                        <Card movieData={movie} index={index} key={movie.id} isLiked={true} />
-                    ))}
-
-                </div>
+                {Array.isArray(movies) && (
+                    <div className="grid flex">
+                        {movies.map((movie, index) => (
+                            <Card movieData={movie} index={index} key={movie.id} isLiked={true} />
+                        ))}
+                    </div>
+                )}
 
             </div>
 

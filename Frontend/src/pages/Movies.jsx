@@ -22,6 +22,7 @@ const Movies = () => {
     useEffect(() => {
         dispatch(getAllGenres('')); // Dispatch the thunk to fetch data
       }, [dispatch]);
+   
   
 // console.log(movieGenres)
     const [isScrolled,setIsScrolled]=useState(false);

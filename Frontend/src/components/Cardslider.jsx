@@ -5,7 +5,7 @@ import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css/navigation';
 import 'swiper/css'
-import { Navigation } from 'swiper/modules'
+// import { Navigation } from 'swiper/modules'
 
 
 
