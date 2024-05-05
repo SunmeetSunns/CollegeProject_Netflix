@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import styled from 'styled-components';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import {Swiper, SwiperSlide} from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css/navigation';
 import 'swiper/css'
-import {Navigation} from 'swiper/modules'
+import { Navigation } from 'swiper/modules'
 
 
 
-export default function Cardslider({ data, title ,id}) {
+export default function Cardslider({ data, title, id }) {
   const [showControls, setShowControls] = useState(false);
   const [swiper, setSwiper] = useState(null);
 
@@ -26,30 +26,40 @@ export default function Cardslider({ data, title ,id}) {
     swiper.slidePrev(); // Slide to the previous slide
   };
   const [swipesPerSlide, setSwipesPerSlide] = useState(3);
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth <= 600 && window.innerWidth>480) {
-                setSwipesPerSlide(2);
-            } else if (window.innerWidth <= 480){
-                setSwipesPerSlide(1);
-            }
-            else if (window.innerWidth >=600 && window.innerWidth<850){
-              setSwipesPerSlide(3);
-          }
-          else if (window.innerWidth >=850 && window.innerWidth<1000){
-            setSwipesPerSlide(4);
-        }
-            else{
-              setSwipesPerSlide(6)
-            }
-        };
+  const [spacePerSlide, setSpacePerSlide] = useState(10);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 600 && window.innerWidth > 480) {
+        setSwipesPerSlide(2);
+        setSpacePerSlide(12);
+      } else if (window.innerWidth <= 480) {
+        setSwipesPerSlide(1);
+        setSpacePerSlide(5);
+      }
+      else if (window.innerWidth >= 600 && window.innerWidth < 850) {
+        setSwipesPerSlide(3);
+        setSpacePerSlide(100);
+      }
+      else if (window.innerWidth >= 850 && window.innerWidth < 1200) {
+        setSwipesPerSlide(4);
+        setSpacePerSlide(100);
+      }
+      else if (window.innerWidth >= 1200 && window.innerWidth < 1500) {
+        setSwipesPerSlide(5)
+        setSpacePerSlide(50);
+      }
+      else {
+        setSwipesPerSlide(6)
+        setSpacePerSlide(10);
+      }
+    };
 
 
-        handleResize();
-        window.addEventListener('resize', handleResize);
+    handleResize();
+    window.addEventListener('resize', handleResize);
 
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <Container
@@ -61,7 +71,7 @@ export default function Cardslider({ data, title ,id}) {
       <div className="wrapper">
         <Swiper
           onSwiper={setSwiper} // Store swiper instance in state
-          spaceBetween={10}
+          spaceBetween={spacePerSlide}
           slidesPerView={swipesPerSlide}
           navigation={{
             prevEl: `.slider-action-left-${id}`, // Use unique class for left control
