@@ -1,31 +1,43 @@
 import React, { useState } from 'react';
 import './FAQ.css'
-import { IoAdd ,IoClose} from 'react-icons/io5';
-import {BiChevronRight}from 'react-icons/bi'
-import {  useNavigate,useLocation } from 'react-router-dom';
-
+import { IoAdd, IoClose } from 'react-icons/io5';
+import { BiChevronRight } from 'react-icons/bi'
+import { useNavigate, useLocation } from 'react-router-dom';
+import { animate, motion } from 'framer-motion'
 
 
 
 
 function FAQ() {
-  const navigate=useNavigate();
-  const location=useLocation();
-const signNavigate = () => {
-  if (location.pathname === '/signup') {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });// Scroll to top if already on signup route
-  }
-  navigate('/signup');
-};
+  const navigate = useNavigate();
+  const location = useLocation();
+  const signNavigate = () => {
+    if (location.pathname === '/signup') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });// Scroll to top if already on signup route
+    }
+    navigate('/signup');
+  };
   const [selectedQuestion, setSelectedQuestion] = useState(null);
 
   const handleQuestionClick = (index) => {
     // Toggle the selected question
     setSelectedQuestion(selectedQuestion === index ? null : index);
   };
+  const variants={
+    initial:{
+      opacity:0,
+
+    },
+    animate:{
+      opacity:1,
+      transition:{
+         ease: "easeOut", duration: 2 
+      }
+    }
+  }
 
 
   const questions = [
@@ -56,19 +68,19 @@ const signNavigate = () => {
       <h1>Frequently Asked Questions</h1>
       <div className="six-ques">
         {questions.map((question, index) => (
-          <div key={index} className="inner">
+          <div key={index} className="inner" >
             <div className="question" onClick={() => handleQuestionClick(index)}>
               {question}
               {selectedQuestion === index ? <IoClose /> : <IoAdd />}
             </div>
             {/* Display the answer below the clicked question */}
-            {selectedQuestion === index && <div className="answer" style={{ whiteSpace: 'pre-line' }}>
-    {answers[index]}
-  </div>}
+            {selectedQuestion === index && <motion.div variants={variants} animate="animate" initial="initial" className="answer" style={{ whiteSpace: 'pre-line' }}>
+              {answers[index]}
+            </motion.div>}
           </div>
         ))}
       </div>
-      <button className="faq-btn" onClick={signNavigate}>Finish SignUp <BiChevronRight/></button>
+      <button className="faq-btn" onClick={signNavigate}>Finish SignUp <BiChevronRight /></button>
     </div>
   );
 }
