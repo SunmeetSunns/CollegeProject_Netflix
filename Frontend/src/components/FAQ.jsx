@@ -2,14 +2,31 @@ import React, { useState } from 'react';
 import './FAQ.css'
 import { IoAdd ,IoClose} from 'react-icons/io5';
 import {BiChevronRight}from 'react-icons/bi'
+import {  useNavigate,useLocation } from 'react-router-dom';
+
+
+
+
 
 function FAQ() {
+  const navigate=useNavigate();
+  const location=useLocation();
+const signNavigate = () => {
+  if (location.pathname === '/signup') {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });// Scroll to top if already on signup route
+  }
+  navigate('/signup');
+};
   const [selectedQuestion, setSelectedQuestion] = useState(null);
 
   const handleQuestionClick = (index) => {
     // Toggle the selected question
     setSelectedQuestion(selectedQuestion === index ? null : index);
   };
+
 
   const questions = [
     "What is Netflix?",
@@ -51,7 +68,7 @@ function FAQ() {
           </div>
         ))}
       </div>
-      <button className="faq-btn">Finish SignUp <BiChevronRight/></button>
+      <button className="faq-btn" onClick={signNavigate}>Finish SignUp <BiChevronRight/></button>
     </div>
   );
 }

@@ -8,7 +8,6 @@ export default function SelectGenre({genres,type}) {
   return (
   
     <Select className='flex' onChange={e=>{
-        console.log(e.target.value)
         dispatch(getAllMoviesData({genres:e.target.value}))
     }}>{genres.map((genre)=>{
         return <option value={genre.genre} key={genre.genre}>{genre.genre}</option>

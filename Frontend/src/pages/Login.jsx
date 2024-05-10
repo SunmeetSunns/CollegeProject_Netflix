@@ -8,71 +8,81 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const Login = () => {
-    const [formValues, setFormValues] = useState({
-        email: "",
-        password: "",
-    });
-    const navigate = useNavigate();
-    const handleLogin = async () => {
-        try {
-            const { email, password } = formValues;
-            await signInWithEmailAndPassword(firebaseAuth, email, password);
-        }
-        catch (err) {
-            console.log(err)
-        }
-    };
-    onAuthStateChanged(firebaseAuth, (currentUser) => {
-        if (currentUser) navigate('/')
-    })
-    return (
-        <Container >
-            <Background />
-            <div className="content">
-                <Header />
-                <div className="form-container flex column a-center j-center">
-                    <div className="form flex column a-center j-center">
-                        <div className="title">
-                            <h3>Login</h3>
-                        </div>
-                        <div className="container flex column">
-                            <input
-                                type="email"
-                                placeholder="Email Address"
-                                name="email"
-                                value={formValues.email}
-                                onChange={(e) =>
-                                    setFormValues({
-                                        ...formValues,
-                                        [e.target.name]: e.target.value,
-                                    })
-                                }
-                            ></input>
-
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                value={formValues.password}
-                                onChange={(e) =>
-                                    setFormValues({
-                                        ...formValues,
-                                        [e.target.name]: e.target.value,
-                                    })
-                                }
-                            ></input>
-
-
-
-                            <button onClick={handleLogin}>Log In</button>
-
-                        </div>
-                    </div>
-                </div>
+  const [formValues, setFormValues] = useState({
+    email: "",
+    password: "",
+  });
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const setErrorAndClearAfterDelay = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 10000); // 30 seconds in milliseconds
+  };
+  const handleLogin = async () => {
+    try {
+      const { email, password } = formValues;
+      await signInWithEmailAndPassword(firebaseAuth, email, password);
+    }
+    catch (err) {
+      setErrorAndClearAfterDelay('Incorrect Password/Email');
+    }
+  };
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) navigate('/')
+  })
+  return (
+    <Container >
+      <Background />
+      <div className="content">
+        <Header />
+        <div className="form-container flex column a-center j-center">
+          <div className="form flex column a-center j-center">
+            <div className="title">
+              <h3>Login</h3>
             </div>
-            <Footer/>
-        </Container>
-    );
+            <div className="container flex column">
+              <input
+                type="email"
+                placeholder="Email Address"
+                name="email"
+                value={formValues.email}
+                onChange={(e) =>
+                  setFormValues({
+                    ...formValues,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+              ></input>
+
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={formValues.password}
+                onChange={(e) =>
+                  setFormValues({
+                    ...formValues,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+              ></input>
+
+              <div>
+                {errorMessage && <h2 className="errorMessage">{errorMessage}</h2>}
+                {/* Other JSX */}
+              </div>
+
+              <button onClick={handleLogin}>Log In</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </Container>
+  );
 };
 
 export default Login;
@@ -121,7 +131,10 @@ const Container = styled.div`
       }
     }
   }
-
+.errorMessage{
+  font-size:20px;
+  color:red;
+}
   @media screen and (max-width: 750px) {
     .form-container .form {
       padding: 0.5rem !important;

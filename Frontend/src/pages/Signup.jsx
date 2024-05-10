@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Background from "../components/Background";
 import Header from "../components/Header";
-import{firebaseAuth} from '../utils/firebase.config'
+import { firebaseAuth } from '../utils/firebase.config'
 import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer.jsx'
@@ -13,18 +13,36 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const navigate=useNavigate();
-  const handleSignIn=async()=>{
-   try{
-    const{email,password}=formValues;
-    await createUserWithEmailAndPassword(firebaseAuth,email,password);
-   }
-   catch(err){
-    console.log(err)
-   }
+  const [errorMessage, setErrorMessage] = useState(null);
+  const setErrorAndClearAfterDelay = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 10000); // 30 seconds in milliseconds
   };
-  onAuthStateChanged(firebaseAuth,(currentUser)=>{
-    if(currentUser) navigate('/')
+  const navigate = useNavigate();
+  const handleSignIn = async () => {
+    try {
+      const { email, password } = formValues;
+      await createUserWithEmailAndPassword(firebaseAuth, email, password);
+    }
+    catch (err) {
+      let errorMessage;
+      switch (err.code) {
+        case 'auth/email-already-in-use':
+          errorMessage = 'Email already exist.';
+          break;
+        case 'auth/weak-password':
+          errorMessage = 'Password should be at least 6 characters.';
+          break;
+        default:
+          errorMessage = 'An error occurred.';
+      }
+      setErrorAndClearAfterDelay(errorMessage);
+    }
+  };
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) navigate('/')
   })
   return (
     <Container showPassword={showPassword}>
@@ -58,12 +76,12 @@ const Signup = () => {
                 placeholder="Password"
                 name="password"
                 value={formValues.password}
-              onChange={(e) =>
-                setFormValues({
-                  ...formValues,
-                  [e.target.name]: e.target.value,
-                })
-              }
+                onChange={(e) =>
+                  setFormValues({
+                    ...formValues,
+                    [e.target.name]: e.target.value,
+                  })
+                }
               ></input>
             )}
 
@@ -71,11 +89,15 @@ const Signup = () => {
               <button onClick={() => setShowPassword(true)}>Get Started</button>
             )}
           </div>
+          <div>
+            {errorMessage && <h2 className="errorMessage">{errorMessage}</h2>}
+            {/* Other JSX */}
+          </div>
           <button onClick={handleSignIn}>Sign Up</button>
         </div>
       </div>
-      <Footer/>
-   
+      <Footer />
+
     </Container>
   );
 };
@@ -99,13 +121,13 @@ const Container = styled.div`
         text-align: center;
         font-size: 2rem;
         h1 {
-          padding: 0 25rem;
+          padding: 0 8rem;
         }
       }
       .form {
         display: grid;
         grid-template-columns: ${({ showPassword }) =>
-          showPassword ? "1fr 1fr" : "2fr 1fr"};
+    showPassword ? "1fr 1fr" : "2fr 1fr"};
         width: 60%;
         input {
           color: black;
@@ -139,4 +161,9 @@ const Container = styled.div`
       }
     }
   }
+  .errorMessage{
+    font-size:20px;
+    color:red;
+  }
+  
 `;

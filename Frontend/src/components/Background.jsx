@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Background = memo(() => {
   return (
    <Container>
-    <img src={background} alt='background image'/>
+    <img src={background} alt='background'/>
    </Container>
   )
 })
