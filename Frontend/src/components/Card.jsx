@@ -25,6 +25,9 @@ export default
         else navigate("/login");
       })
       const dispatch = useDispatch();
+      const handleNavigate = () => {
+        navigate(`/player`, { state: { movieId: movieData.id } });
+      };
       const addtoList = async () => {
         try {
           await axios.post('https://collegeproject-netflix.onrender.com/api/user/add', { email, data: movieData })
@@ -45,7 +48,7 @@ export default
                 <img
                   src={`${movieData.image}`}
                   alt="movie"
-                  onClick={() => navigate("/player")}
+                  onClick={handleNavigate}
                 />
                 <video
                   src={video}
@@ -53,18 +56,18 @@ export default
                   loop
                   controls
                   muted
-                  onClick={() => navigate("/player")}
+                  onClick={handleNavigate}
                 />
               </div>
               <div className="info-container flex column">
-                <h3 className="name" onClick={() => navigate("/player")}>
+                <h3 className="name" onClick={handleNavigate}>
                   {movieData.name}
                 </h3>
                 <div className="icons flex j-between">
                   <div className="controls flex">
                     <IoPlayCircleSharp
                       title="play"
-                      onClick={() => navigate("/player")}
+                      onClick={handleNavigate}
                     />
                     <RiThumbUpFill title="Like" />
                     <RiThumbDownFill title="Dislike" />

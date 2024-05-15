@@ -17,42 +17,33 @@ const initialState = {
 
 
 
-export const fetchTrailersForMovies = async (imdbIDs) => {
-  try {
-    // Slice the array to include only the first 10 IMDb IDs
-    const imdbIDsToProcess = imdbIDs.slice(0, 10);
-    
-    const trailers = {};
+// export const fetchTrailersForMovies = async (imdbID) => {
+//   try {
+//     const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+//       params: {
+//         q: `${imdbID} trailer`,
+//         key: YT_API_KEY,
+//         part: 'snippet',
+//         type: 'video',
+//         maxResults: 1,
+//       },
+//     });
 
-    for (const imdbID of imdbIDsToProcess) {
-      const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
-        params: {
-          q: imdbID + ' trailer',
-          key: YT_API_KEY,
-          part: 'snippet',
-          type: 'video',
-          maxResults: 1,
-        },
-      });
-
-      // Check if response has items
-      if (response.data.items && response.data.items.length > 0) {
-        // Extract the video ID from the response
-        const videoId = response.data.items[0].id.videoId;
-        // Store the video ID in the trailers object using the IMDb ID as key
-        trailers[imdbID] = `https://www.youtube.com/watch?v=${videoId}`;
-      } else {
-        // No trailer found for this IMDb ID
-        trailers[imdbID] = null;
-      }
-    }
-console.log(trailers)
-    return trailers;
-  } catch (error) {
-    console.error('Error fetching trailers:', error);
-    throw error;
-  }
-};
+//     // Check if response has items
+//     if (response.data.items && response.data.items.length > 0) {
+//       // Extract the video ID from the response
+//       const videoId = response.data.items[0].id.videoId;
+//       // Return the video URL
+//       return `https://www.youtube.com/watch?v=${videoId}`;
+//     } else {
+//       // No trailer found for this IMDb ID
+//       return null;
+//     }
+//   } catch (error) {
+//     console.error('Error fetching trailer:', error);
+//     throw error;
+//   }
+// };
 
 
 
@@ -242,6 +233,29 @@ export const getAllSeriesData = createAsyncThunk('netflix/genres_series', async 
   }
 
 });
+export const getMovieVideo=createAsyncThunk('netflix/getVideo',async(id)=>{
+  const options = {
+    method: 'GET',
+    url: 'https://streaming-availability.p.rapidapi.com/get',
+    params: {
+      output_language: 'en',
+      imdb_id: id
+    },
+    headers: {
+      'X-RapidAPI-Key': '0bd14eb2cdmshc74f7d07120123ep1eadd7jsnfd2042092d20',
+      'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
+    }
+  };
+  
+  try {
+    const response = await axios.request(options);
+    // return response.data?.
+    return response.data?.result?.streamingInfo
+    
+  } catch (error) {
+    console.error(error);
+  }
+})
 
 export const getUserLikedMovies=createAsyncThunk('netflix/getLiked',async(email)=>{
   const {data:{movies}}=await axios.get(`https://collegeproject-netflix.onrender.com/api/user/liked/${email}`)
@@ -258,7 +272,34 @@ export const removeFromLikedMovies = createAsyncThunk(
     return movies;
   }
 );
+export const fetchTrailersForMovies =createAsyncThunk('netflix.video',async(id)=>{
+  try {
+    const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+      params: {
+        q: `${id} trailer`,
+        key: YT_API_KEY,
+        part: 'snippet',
+        type: 'video',
+        maxResults: 1,
+      },
+    });
 
+    // Check if response has items
+    if (response.data.items && response.data.items.length > 0) {
+      // Extract the video ID from the response
+      const videoId = response.data.items[0].id.videoId;
+      // Return the video URL
+      return `https://www.youtube.com/watch?v=${videoId}`;
+    } else {
+      // No trailer found for this IMDb ID
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching trailer:', error);
+    throw error;
+  }
+
+})
 export const getAllGenres = createAsyncThunk('netflix/genres_mov', async ( thunkAPI) => {
 const options = {
   method: 'GET',
@@ -309,6 +350,9 @@ const NetflixSlice = createSlice({
     })
     builder.addCase(getMovieBySearch.fulfilled,(state,action)=>{
       state.movies=action.payload;
+    })
+    builder.addCase(fetchTrailersForMovies.fulfilled,(state,action)=>{
+      state.video=action.payload
     })
    
   }
