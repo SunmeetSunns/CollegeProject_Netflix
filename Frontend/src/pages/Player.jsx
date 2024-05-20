@@ -10,15 +10,16 @@ import video from '../assets/stranger.mp4'
 const Player = () => {
     const location = useLocation();
     const dispatch = useDispatch();
-    const { movieId } = location.state;
+    const { movieId } = location.state || {}; 
 
     // Fetch the YouTube video link from Redux state
     const link = useSelector((state) => state.netflix.video);
 
     useEffect(() => {
-        dispatch(fetchTrailersForMovies(movieId));
+        if (movieId) {
+            dispatch(fetchTrailersForMovies(movieId));
+        }
     }, [dispatch, movieId]);
-
     const navigate = useNavigate();
 
     // Extract video ID from the YouTube link
